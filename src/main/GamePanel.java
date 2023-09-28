@@ -10,7 +10,7 @@ public class GamePanel extends JPanel {
     private int xDelta = 0,yDelta=0;
     MouseInputs mouse;
     public GamePanel(){
-        mouse = new MouseInputs();
+        mouse = new MouseInputs(this);
         addKeyListener(new KeyboardInput(this));
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
@@ -18,15 +18,20 @@ public class GamePanel extends JPanel {
 
     public void changeXDelta(int value){
         this.xDelta+=value;
-        repaint();
+        super.repaint();
     }
     public void changeYDelta(int value){
         this.yDelta+=value;
+        super.repaint();
+    }
+    public void setRectPos(int x,int y){
+        this.xDelta = x;
+        this.yDelta = y;
         repaint();
     }
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponents(g);
-        g.fillRect(100+xDelta,100+yDelta,200,50);
+        super.paintComponent(g);
+        g.fillRect(xDelta,yDelta,200,50);
     }
 }
