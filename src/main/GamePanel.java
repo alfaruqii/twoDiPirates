@@ -10,20 +10,26 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-
 public class GamePanel extends JPanel {
     private float xDelta = 100,yDelta=100;
     private float xDir=1,yDir=1;
-    private Color color = new Color(255,255,255);
+//    private Color color = new Color(255,255,255);
 //    private Random random;
 //    private long lastCheck;
 //    private ArrayList<MyRect> rects = new ArrayList<>();
-    private BufferedImage img,subImg;
+    private BufferedImage[][] charAnimates;
+    private BufferedImage img;
     MouseInputs mouse;
     public GamePanel(){
 //        random = new Random();
+        charAnimates = new BufferedImage[8][6];
         importImage();
         setPanelSize();
+        for(int i=0;i<charAnimates[0].length;i++){
+            for(int j=0;j<charAnimates[1].length;j++){
+                charAnimates[i][j] = img.getSubimage(0,0,i*64,j);
+            }
+        }
         mouse = new MouseInputs(this);
         addKeyListener(new KeyboardInput(this));
         addMouseListener(mouse);
@@ -38,6 +44,12 @@ public class GamePanel extends JPanel {
             img = ImageIO.read(is);
         } catch (IOException e){
             e.printStackTrace();
+        }finally {
+            try{
+                is.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -54,6 +66,11 @@ public class GamePanel extends JPanel {
         this.xDelta = x;
         this.yDelta = y;
     }
+
+    public void addAnimationTick(){
+        xDelta++;
+        if()
+    }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -61,10 +78,9 @@ public class GamePanel extends JPanel {
 //            rect.updateRect();
 //            rect.draw(g);
 //        }
-
-        subImg = img.getSubimage(1*64,7*40,64,40);
-        g.drawImage(subImg,(int)xDelta,(int)yDelta,128,80,null);
-
+        for(int i=0;i<charAnimates.length;i++){
+            g.drawImage(charAnimates[0][i],0,0,null);
+        }
 //        updateRectangle();
 //        g.setColor(color);
 //        g.fillRect((int)xDelta,(int)yDelta,50,50);
