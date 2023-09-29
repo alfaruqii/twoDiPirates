@@ -9,11 +9,10 @@ import java.awt.*;
 //import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.Random;
 
 
 public class GamePanel extends JPanel {
-    private float xDelta = 0,yDelta=0;
+    private float xDelta = 100,yDelta=100;
     private float xDir=1,yDir=1;
     private Color color = new Color(255,255,255);
 //    private Random random;
@@ -33,7 +32,7 @@ public class GamePanel extends JPanel {
     }
 
     public void importImage(){
-        InputStream is = getClass().getResourceAsStream("/player_sprites.png");
+        InputStream is = getClass().getResourceAsStream("/res/player_sprites.png");
         System.out.println("hasil : "+is);
         try {
             img = ImageIO.read(is);
@@ -63,7 +62,8 @@ public class GamePanel extends JPanel {
 //            rect.draw(g);
 //        }
 
-        g.drawImage(img,(int)xDelta,(int)yDelta,128,80,null);
+        subImg = img.getSubimage(1*64,7*40,64,40);
+        g.drawImage(subImg,(int)xDelta,(int)yDelta,128,80,null);
 
 //        updateRectangle();
 //        g.setColor(color);
