@@ -10,26 +10,31 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+
+import static utilz.Constants.Directions.*;
+import static utilz.Constants.PlayerConstant.IDLE;
+import static utilz.Constants.PlayerConstant.RUNNING;
+import static utilz.Constants.PlayerConstant.GetSpriteAmount;
+
 public class GamePanel extends JPanel {
     private float xDelta = 100,yDelta=100;
-    private float xDir=1,yDir=1;
+//    private float xDir=1,yDir=1;
 //    private Color color = new Color(255,255,255);
 //    private Random random;
 //    private long lastCheck;
 //    private ArrayList<MyRect> rects = new ArrayList<>();
+    private int aniTick, aniInd, aniSpeed = 15;
     private BufferedImage[][] charAnimates;
     private BufferedImage img;
+    private int playerAction = IDLE;
+    private int playerDir = -1;
+    private boolean moving = false;
     MouseInputs mouse;
     public GamePanel(){
 //        random = new Random();
-        charAnimates = new BufferedImage[8][6];
         importImage();
+        loadAnimation();
         setPanelSize();
-        for(int i=0;i<charAnimates[0].length;i++){
-            for(int j=0;j<charAnimates[1].length;j++){
-                charAnimates[i][j] = img.getSubimage(0,0,i*64,j);
-            }
-        }
         mouse = new MouseInputs(this);
         addKeyListener(new KeyboardInput(this));
         addMouseListener(mouse);
@@ -37,7 +42,15 @@ public class GamePanel extends JPanel {
 
     }
 
-    public void importImage(){
+    private void loadAnimation(){
+        charAnimates = new BufferedImage[9][6];
+        for(int i=0;i<charAnimates.length;i++){
+            for(int j=0;j<charAnimates[i].length;j++){
+                charAnimates[i][j] = img.getSubimage(j * 64,i * 40,64,40);
+            }
+        }
+    }
+    private void importImage(){
         InputStream is = getClass().getResourceAsStream("/res/player_sprites.png");
         System.out.println("hasil : "+is);
         try {
@@ -67,9 +80,54 @@ public class GamePanel extends JPanel {
         this.yDelta = y;
     }
 
-    public void addAnimationTick(){
-        xDelta++;
-        if()
+    public void setMoving(boolean moving){
+        this.moving = moving;
+    }
+
+    public void setPlayerDir(int direction){
+        this.playerDir = direction;
+        moving = true;
+    }
+
+    public void updateAnimationTick(){
+        aniTick++;
+        if(aniTick >= aniSpeed){
+            aniTick = 0;
+            aniInd++;
+            if(aniInd >= GetSpriteAmount(playerAction)){
+                aniInd = 0;
+            }
+        }
+    }
+    public void setAnimation(){
+        if(moving){
+            playerAction = RUNNING;
+        }else{
+            playerAction = IDLE;
+        }
+    }
+    public void updatePos(){
+        if(moving){
+            switch (playerDir){
+                case LEFT:
+                    xDelta -= 5;
+                    break;
+                case UP:
+                    yDelta -= 5;
+                    break;
+                case RIGHT:
+                    xDelta += 5;
+                    break;
+                case DOWN:
+                    yDelta += 5;
+                    break;
+            }
+        }
+    }
+
+    private void setPanelSize(){
+        Dimension dimension = new Dimension(1280,800);
+        setPreferredSize(dimension);
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -78,18 +136,13 @@ public class GamePanel extends JPanel {
 //            rect.updateRect();
 //            rect.draw(g);
 //        }
-        for(int i=0;i<charAnimates.length;i++){
-            g.drawImage(charAnimates[0][i],0,0,null);
-        }
+        updateAnimationTick();
+        setAnimation();
+        updatePos();
+        g.drawImage(charAnimates[playerAction][aniInd],(int)xDelta,(int)yDelta,256,160,null);
 //        updateRectangle();
 //        g.setColor(color);
 //        g.fillRect((int)xDelta,(int)yDelta,50,50);
-    }
-    private void setPanelSize(){
-        Dimension dimension = new Dimension(1280,800);
-        this.setMaximumSize(dimension);
-        this.setPreferredSize(dimension);
-        this.setMinimumSize(dimension);
     }
 
 //    public void updateRectangle(){
