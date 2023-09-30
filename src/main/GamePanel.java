@@ -129,6 +129,12 @@ public class GamePanel extends JPanel {
         Dimension dimension = new Dimension(1280,800);
         setPreferredSize(dimension);
     }
+
+    public void updateGame(){
+        updateAnimationTick();
+        setAnimation();
+        updatePos();
+    }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -136,9 +142,6 @@ public class GamePanel extends JPanel {
 //            rect.updateRect();
 //            rect.draw(g);
 //        }
-        updateAnimationTick();
-        setAnimation();
-        updatePos();
         g.drawImage(charAnimates[playerAction][aniInd],(int)xDelta,(int)yDelta,256,160,null);
 //        updateRectangle();
 //        g.setColor(color);
