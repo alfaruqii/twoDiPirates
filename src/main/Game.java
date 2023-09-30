@@ -11,7 +11,6 @@ public class Game implements Runnable{
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
     private Player player;
-    private long lastCheck;
     public Game(){
         initClass();
         panel = new GamePanel(this);
@@ -41,13 +40,13 @@ public class Game implements Runnable{
         int update = 0;
         double deltaU = 0;
         double deltaF = 0;
-        long previosTime = System.nanoTime();
+        long previousTime = System.nanoTime();
         long lastCheck = System.currentTimeMillis();
         while (true){
             long currentTime = System.nanoTime();
-            deltaU += (currentTime - previosTime) / updatePerFrame;
-            deltaF += (currentTime - previosTime) / timePerFrame;
-            previosTime = currentTime;
+            deltaU += (currentTime - previousTime) / updatePerFrame;
+            deltaF += (currentTime - previousTime) / timePerFrame;
+            previousTime = currentTime;
             if(deltaU >= 1){
                 update();
                 update++;
