@@ -29,10 +29,6 @@ public class Player extends Entity{
         setAnimation();
     }
 
-    public void setPlayerDir(int direction){
-        this.playerDir = direction;
-        moving = true;
-    }
     public void setAnimation(){
         int startAni = playerAction;
         if(moving){
@@ -55,6 +51,7 @@ public class Player extends Entity{
             aniInd++;
             if(aniInd >= GetSpriteAmount(playerAction)){
                 aniInd = 0;
+                attacking = false;
             }
         }
     }
@@ -81,8 +78,15 @@ public class Player extends Entity{
             }
     }
 
-    public void setMoving(boolean moving){
-        this.moving = moving;
+    public void resetDirBoolean(){
+        left = false;
+        right = false;
+        up = false;
+        down = false;
+    }
+
+    public void setAttacking(boolean attacking){
+        this.attacking = attacking;
     }
     private void loadAnimation(){
         InputStream is = getClass().getResourceAsStream("/res/player_sprites.png");

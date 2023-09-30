@@ -8,15 +8,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel {
-    private Player player;
+    private Game game;
     MouseInputs mouse;
-    public GamePanel(){
+    public GamePanel(Game game){
+        this.game = game;
         setPanelSize();
         mouse = new MouseInputs(this);
         addKeyListener(new KeyboardInput(this));
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
-        player = new Player(100,100);
     }
 
 
@@ -24,13 +24,13 @@ public class GamePanel extends JPanel {
         Dimension dimension = new Dimension(1280,800);
         setPreferredSize(dimension);
     }
-    public Player getPlayer(){
-        return player;
-    }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        player.render(g);
+        game.render(g);
+    }
+    public Game getGame(){
+        return game;
     }
 }
