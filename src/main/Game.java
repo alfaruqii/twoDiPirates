@@ -19,7 +19,7 @@ public class Game implements Runnable{
         thread.start();
     }
     public void update(){
-        panel.updateGame();
+        panel.getPlayer().updateGame();
     }
     @Override
     public void run(){
