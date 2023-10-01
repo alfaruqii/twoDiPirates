@@ -1,5 +1,7 @@
 package entities;
 
+import levels.Level;
+import levels.LevelManager;
 import utilz.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,18 +10,19 @@ import static utilz.Constants.PlayerConstant.*;
 public class Player extends Entity{
     private int aniTick, aniInd, aniSpeed = 15;
     private int playerAction = IDLE;
-    private int playerDir = -1;
     private boolean moving = false,attacking=false;
     private boolean left,up,right,down;
     private float playerSpeed = 2.0f;
     private BufferedImage[][] charAnimates;
-    public Player(float x, float y,float width, float heigth) {
+    private int[][] lvlData;
+    public Player(float x, float y,int width, int heigth) {
         super(x, y,width,heigth);
         loadAnimation();
     }
 
     public void updateGame(){
         updatePos();
+        updateHitbox();
         updateAnimationTick();
         setAnimation();
     }
@@ -92,8 +95,13 @@ public class Player extends Entity{
             }
         }
     }
+    public int[][] loadLvlData(int[][] lvlData){
+        this.lvlData = lvlData;
+        return lvlData;
+    }
     public void render(Graphics g){
-        g.drawImage(charAnimates[playerAction][aniInd],(int)x,(int)y,128,80,null);
+        g.drawImage(charAnimates[playerAction][aniInd],(int)x,(int)y,width,height,null);
+        drawHitbox(g);
     }
 
     public void setLeft(boolean left) {
