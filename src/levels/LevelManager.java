@@ -6,8 +6,6 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import utilz.LoadSave;
-
 import static main.Game.TILES_SIZE;
 
 public class LevelManager {
@@ -41,7 +39,7 @@ public class LevelManager {
     }
     public void update(){
     }
-    public Level getLevelOne(){
+    public Level getCurrenLevel(){
         return levelOne;
     }
 }

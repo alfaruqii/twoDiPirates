@@ -8,7 +8,7 @@ public class Level {
     public int getSpriteIndex(int x,int y){
         return lvlData[y][x];
     }
-    public int[][] getLvlData(){
+    public int[][] getLevelData(){
         return lvlData;
     }
 }

@@ -6,6 +6,7 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import static utilz.Constants.PlayerConstant.*;
+import static utilz.HelpMethods.CanMoveHere;
 
 public class Player extends Entity{
     private int aniTick, aniInd, aniSpeed = 15;
@@ -60,20 +61,25 @@ public class Player extends Entity{
 
     public void updatePos(){
         moving = false;
-            if(left && !right){
-                x -= playerSpeed;
-                moving = true;
-            } else if(right && !left){
-                x += playerSpeed;
-                moving = true;
-            }
-            if(up && !down){
-                y -= playerSpeed;
-                moving = true;
-            } else if(down && !up){
-                y += playerSpeed;
-                moving = true;
-            }
+        if(!left && !right && !up && !down){
+            return;
+        }
+        float xSpeed =0,ySpeed=0;
+        if(left && !right){
+            xSpeed = -playerSpeed;
+        } else if(right && !left){
+            xSpeed = playerSpeed;
+        }
+        if(up && !down){
+            ySpeed = -playerSpeed;
+        } else if(down && !up){
+            ySpeed = playerSpeed;
+        }
+        if(CanMoveHere(x+xSpeed,y+ySpeed,width,height,lvlData)){
+            this.x += xSpeed;
+            this.y += ySpeed;
+            moving = true;
+        }
     }
 
     public void resetDirBoolean(){
@@ -95,9 +101,8 @@ public class Player extends Entity{
             }
         }
     }
-    public int[][] loadLvlData(int[][] lvlData){
+    public void loadLvlData(int[][] lvlData){
         this.lvlData = lvlData;
-        return lvlData;
     }
     public void render(Graphics g){
         g.drawImage(charAnimates[playerAction][aniInd],(int)x,(int)y,width,height,null);
