@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static main.Game.GAME_WIDTH;
+import static main.Game.GAME_HEIGHT;
+
 public class GamePanel extends JPanel {
     private Game game;
     MouseInputs mouse;
@@ -21,7 +24,7 @@ public class GamePanel extends JPanel {
 
 
     private void setPanelSize(){
-        Dimension dimension = new Dimension(1280,800);
+        Dimension dimension = new Dimension(GAME_WIDTH,GAME_HEIGHT);
         setPreferredSize(dimension);
     }
 

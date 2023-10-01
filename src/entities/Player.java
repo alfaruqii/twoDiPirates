@@ -1,13 +1,8 @@
 package entities;
 
-import javax.imageio.ImageIO;
+import utilz.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import static utilz.Constants.Directions.*;
-import static utilz.Constants.Directions.DOWN;
 import static utilz.Constants.PlayerConstant.*;
 
 public class Player extends Entity{
@@ -18,8 +13,8 @@ public class Player extends Entity{
     private boolean left,up,right,down;
     private float playerSpeed = 2.0f;
     private BufferedImage[][] charAnimates;
-    public Player(float x, float y) {
-        super(x, y);
+    public Player(float x, float y,float width, float heigth) {
+        super(x, y,width,heigth);
         loadAnimation();
     }
 
@@ -89,27 +84,16 @@ public class Player extends Entity{
         this.attacking = attacking;
     }
     private void loadAnimation(){
-        InputStream is = getClass().getResourceAsStream("/res/player_sprites.png");
-        try {
-            BufferedImage img = ImageIO.read(is);
-            charAnimates = new BufferedImage[9][6];
-            for(int i=0;i<charAnimates.length;i++){
-                for(int j=0;j<charAnimates[i].length;j++){
-                    charAnimates[i][j] = img.getSubimage(j * 64,i * 40,64,40);
-                }
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }finally {
-            try{
-                is.close();
-            } catch (IOException e){
-                e.printStackTrace();
+        BufferedImage img = LoadSave.GetSpritesAtlas(LoadSave.PLAYER_SPRITES);
+        charAnimates = new BufferedImage[9][6];
+        for(int i=0;i<charAnimates.length;i++){
+            for(int j=0;j<charAnimates[i].length;j++){
+                charAnimates[i][j] = img.getSubimage(j * 64,i * 40,64,40);
             }
         }
     }
     public void render(Graphics g){
-        g.drawImage(charAnimates[playerAction][aniInd],(int)x,(int)y,256,160,null);
+        g.drawImage(charAnimates[playerAction][aniInd],(int)x,(int)y,128,80,null);
     }
 
     public void setLeft(boolean left) {
