@@ -1,5 +1,6 @@
 package entities;
 
+import gamestates.Gamestates;
 import levels.Level;
 import levels.LevelManager;
 import main.Game;
@@ -33,7 +34,7 @@ public class Player extends Entity{
         initHitbox(x,y,20*Game.SCALE,26*Game.SCALE);
     }
 
-    public void updateGame(){
+    public void update(){
         updatePos();
         updateAnimationTick();
         setAnimation();
