@@ -70,6 +70,9 @@ public class Playing extends State implements Statemethods {
             case KeyEvent.VK_D:
                 player.setRight(false);
                 break;
+            case KeyEvent.VK_BACK_SPACE:
+                Gamestates.state = Gamestates.MENU;
+                break;
         }
     }
 
