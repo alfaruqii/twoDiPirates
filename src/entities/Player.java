@@ -2,6 +2,7 @@ package entities;
 
 import levels.Level;
 import levels.LevelManager;
+import main.Game;
 import utilz.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,15 +16,17 @@ public class Player extends Entity{
     private boolean left,up,right,down;
     private float playerSpeed = 2.0f;
     private BufferedImage[][] charAnimates;
+    private float xDrawOffset = 21 * Game.SCALE;
+    private float yDrawOffset = 4 * Game.SCALE;
     private int[][] lvlData;
     public Player(float x, float y,int width, int heigth) {
         super(x, y,width,heigth);
         loadAnimation();
+        initHitbox(x,y,20*Game.SCALE,28*Game.SCALE);
     }
 
     public void updateGame(){
         updatePos();
-        updateHitbox();
         updateAnimationTick();
         setAnimation();
     }
@@ -75,9 +78,9 @@ public class Player extends Entity{
         } else if(down && !up){
             ySpeed = playerSpeed;
         }
-        if(CanMoveHere(x+xSpeed,y+ySpeed,width,height,lvlData)){
-            this.x += xSpeed;
-            this.y += ySpeed;
+        if(CanMoveHere(hitbox.x+xSpeed,hitbox.y+ySpeed,hitbox.width,hitbox.height,lvlData)){
+            hitbox.x += xSpeed;
+            hitbox.y += ySpeed;
             moving = true;
         }
     }
@@ -105,7 +108,7 @@ public class Player extends Entity{
         this.lvlData = lvlData;
     }
     public void render(Graphics g){
-        g.drawImage(charAnimates[playerAction][aniInd],(int)x,(int)y,width,height,null);
+        g.drawImage(charAnimates[playerAction][aniInd],(int)(hitbox.x-xDrawOffset),(int)(hitbox.y-yDrawOffset),width,height,null);
         drawHitbox(g);
     }
 
