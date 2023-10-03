@@ -10,6 +10,7 @@ public interface Statemethods {
     public void mouseReleased(MouseEvent mouseEvent);
     public void mouseEntered(MouseEvent mouseEvent);
     public void mouseClicked(MouseEvent mouseEvent);
+    public void mouseMoved(MouseEvent mouseEvent);
     public void mouseDragged(MouseEvent mouseEvent);
     public void mousePressed(MouseEvent mouseEvent);
     public void keyReleased(KeyEvent keyEvent);
