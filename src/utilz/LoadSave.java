@@ -17,6 +17,7 @@ public class LoadSave {
     public static final String BUTTON_ATLAS = "res/button_atlas.png";
     public static final String MENU_BACKGROUND = "res/menu_background.png";
     public static final String PAUSE_MENU = "res/pause_menu.png";
+    public static final String SOUNDS_BUTTON = "res/sound_button.png";
     public static BufferedImage GetSpritesAtlas(String path){
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+path);
