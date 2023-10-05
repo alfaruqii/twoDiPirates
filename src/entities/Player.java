@@ -81,9 +81,9 @@ public class Player extends Entity{
         if(jump){
             jump();
         }
-        if(!left && !right && !inAir){
-            return;
-        }
+        if(!inAir)
+            if((!left && !right) || (left && right))
+                return;
         float xSpeed =0;
         if(left){
             xSpeed -= playerSpeed;
@@ -154,8 +154,8 @@ public class Player extends Entity{
         if(!IsEntityOnFloor(hitbox,lvlData))
             inAir = true;
     }
-    public void render(Graphics g){
-        g.drawImage(charAnimates[playerAction][aniInd],(int)(hitbox.x-xDrawOffset),(int)(hitbox.y-yDrawOffset),width,height,null);
+    public void render(Graphics g,int xLvlOffset){
+        g.drawImage(charAnimates[playerAction][aniInd],(int)(hitbox.x-xDrawOffset)-xLvlOffset,(int)(hitbox.y-yDrawOffset),width,height,null);
     }
 
     public void setLeft(boolean left) {
