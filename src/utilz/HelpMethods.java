@@ -29,9 +29,9 @@ public class HelpMethods {
         }
         return false;
     }
-    public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float xSpeed){
+    public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float airSpeed){
         int currentTile = (int) (hitbox.x / Game.TILES_SIZE);
-        if(xSpeed > 0){
+        if(airSpeed > 0){
             // Right
             int tileXPos = currentTile * Game.TILES_SIZE;
             int xOffset = (int) (Game.TILES_SIZE - hitbox.width);
@@ -58,5 +58,8 @@ public class HelpMethods {
             if(!IsSolid(hitbox.x+ hitbox.width, hitbox.y+ hitbox.height+1, lvlData))
                 return false;
         return true;
+    }
+    public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData){
+        return IsSolid(hitbox.x+xSpeed, hitbox.y + hitbox.height + 1, lvlData);
     }
 }
