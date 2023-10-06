@@ -3,6 +3,38 @@ package utilz;
 import main.Game;
 
 public class Constants {
+    public static class EnemyConstants {
+        public static final int CRABBY = 0;
+        public static final int IDLE = 0;
+        public static final int RUNNING = 1;
+        public static final int ATTACK = 2;
+        public static final int HIT = 3;
+        public static final int DIE = 4;
+        public static final int CRABBY_WIDTH_DEFAULT = 72;
+        public static final int CRABBY_HEIGHT_DEFAULT = 32;
+        public static final int CRABBY_WIDTH = (int)(CRABBY_WIDTH_DEFAULT * Game.SCALE);
+        public static final int CRABBY_HEIGHT = (int)(CRABBY_HEIGHT_DEFAULT * Game.SCALE);
+        public static final int CRABBY_OFFSETX = (int)(26 * Game.SCALE);
+        public static final int CRABBY_OFFETY = (int)(9 * Game.SCALE);
+        public static int GetSpriteAmount(int enemyType,int enemyState){
+            switch (enemyType){
+                case CRABBY:
+                    switch (enemyState){
+                        case IDLE:
+                            return 9;
+                        case RUNNING:
+                            return 6;
+                        case ATTACK:
+                            return 7;
+                        case HIT:
+                            return 4;
+                        case DIE:
+                            return 5;
+                    }
+            }
+            return 0;
+        }
+    }
     public static class Environment {
         public static final int BIG_CLOUD_DEFAULT_WIDTH = 576;
         public static final int BIG_CLOUD_DEFAULT_HEIGHT = 324;
