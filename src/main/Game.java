@@ -19,7 +19,7 @@ public class Game implements Runnable{
     public static gamestates.Menu menu;
     public static Playing playing;
     public static final int TILES_DEFAULT = 32;
-    public static final float SCALE = 1.5f;
+    public static final float SCALE = 1f;
     public static final int TILES_IN_WIDTH = 26;
     public static final int TILES_IN_HEIGHT = 14;
     public static final int TILES_SIZE = (int)(TILES_DEFAULT * SCALE);

@@ -24,7 +24,7 @@ public class Playing extends State implements Statemethods {
     private int lvlTilesWide = LoadSave.GetLevelData()[0].length;
     private int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
     private int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
-    private BufferedImage backgroundImg,bigCloud,smallCloud;
+    private BufferedImage backgroundImg,bigCloud,smallCloud,moon;
     private int[] smallCloudsPos;
     private Random rnd = new Random();
     public Playing(Game game){
@@ -33,6 +33,7 @@ public class Playing extends State implements Statemethods {
         backgroundImg = LoadSave.GetSpritesAtlas(LoadSave.PLAYING_BG_IMG);
         bigCloud = LoadSave.GetSpritesAtlas(LoadSave.BIG_CLOUDS);
         smallCloud = LoadSave.GetSpritesAtlas(LoadSave.SMALL_CLOUDS);
+        moon = LoadSave.GetSpritesAtlas(LoadSave.MOON);
     }
     public void initClass(){
         pauseOverlay = new PauseOverlay(this);
@@ -71,6 +72,7 @@ public class Playing extends State implements Statemethods {
     @Override
     public void draw(Graphics g) {
         g.drawImage(backgroundImg,0,0,Game.GAME_WIDTH,Game.GAME_HEIGHT,null);
+        g.drawImage(moon,Game.GAME_WIDTH/4,(int)(60*Game.SCALE),MOON_WIDTH,MOON_HEIGHT,null);
         drawClouds(g);
         levelManager.draw(g,xLvlOffset);
         player.render(g,xLvlOffset);

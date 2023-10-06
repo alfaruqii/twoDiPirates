@@ -8,10 +8,14 @@ public class Constants {
         public static final int BIG_CLOUD_DEFAULT_HEIGHT = 324;
         public static final int SMALL_CLOUD_DEFAULT_WIDTH = 158;
         public static final int SMALL_CLOUD_DEFAULT_HEIGHT = 147;
+        public static final int MOON_DEFAULT_WIDTH = 576;
+        public static final int MOON_DEFAULT_HEIGHT = 324;
         public static final int BIG_CLOUD_WIDTH =(int)(BIG_CLOUD_DEFAULT_WIDTH * Game.SCALE);
         public static final int BIG_CLOUD_HEIGHT =(int)(BIG_CLOUD_DEFAULT_HEIGHT * Game.SCALE);
         public static final int SMALL_CLOUD_WIDTH =(int)(SMALL_CLOUD_DEFAULT_WIDTH * Game.SCALE);
         public static final int SMALL_CLOUD_HEIGHT =(int)(SMALL_CLOUD_DEFAULT_HEIGHT * Game.SCALE);
+        public static final int MOON_WIDTH =(int)(MOON_DEFAULT_WIDTH * Game.SCALE);
+        public static final int MOON_HEIGHT =(int)(MOON_DEFAULT_HEIGHT * Game.SCALE);
     }
     public static class UI {
         public static class Buttons{

@@ -24,6 +24,7 @@ public class LoadSave {
     public static final String VOLUME_BUTTON = "res/volume_buttons.png";
     public static final String BIG_CLOUDS = "res/big_clouds.png";
     public static final String SMALL_CLOUDS = "res/small_clouds.png";
+    public static final String MOON = "res/moon.png";
     public static BufferedImage GetSpritesAtlas(String path){
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+path);
