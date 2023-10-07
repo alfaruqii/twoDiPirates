@@ -90,7 +90,10 @@ public class PauseOverlay {
             }
         if(isIn(mouseEvent,replayB))
             if(replayB.isMousePressed())
-                System.out.println("replay level!");
+            {
+                playing.resetAll();
+                playing.unpause();
+            }
         if(isIn(mouseEvent,unpauseB))
             if(unpauseB.isMousePressed())
                 playing.unpause();

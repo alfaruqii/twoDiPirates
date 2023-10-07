@@ -29,6 +29,7 @@ public class LoadSave {
     public static final String SMALL_CLOUDS = "res/small_clouds.png";
     public static final String MOON = "res/moon.png";
     public static final String CRABBY_SPRITE = "res/crabby_sprite.png";
+    public static final String HEALTH_POWER_BAR = "res/health_power_bar.png";
     public static BufferedImage GetSpritesAtlas(String path){
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+path);
