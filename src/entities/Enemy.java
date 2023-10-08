@@ -5,17 +5,17 @@ import main.Game;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+import static utilz.Constants.ANI_SPEED;
 import static utilz.Constants.Directions.LEFT;
 import static utilz.Constants.Directions.RIGHT;
 import static utilz.Constants.EnemyConstants.*;
+import static utilz.Constants.GRAVITY;
 import static utilz.HelpMethods.*;
 
 public abstract class Enemy extends Entity{
     protected int aniIndex, enemyState,enemyType;
-    protected int aniTick,aniSpeed = 25;
     protected boolean firstUpdate = true;
     protected float fallSpeed;
-    protected float gravity = 0.04f * Game.SCALE;
     protected float walkSpeed = 0.35f * Game.SCALE;
     protected int walkDir = LEFT;
     protected int tileY;
@@ -38,7 +38,7 @@ public abstract class Enemy extends Entity{
     }
     protected void updateAnimationTick(){
         aniTick++;
-        if(aniTick >= aniSpeed){
+        if(aniTick >= ANI_SPEED){
             aniTick = 0;
             aniIndex++;
             if(aniIndex >= GetSpriteAmount(enemyType,enemyState)){
@@ -59,7 +59,7 @@ public abstract class Enemy extends Entity{
     protected void updateInAir(int[][] lvlData){
         if(CanMoveHere(hitbox.x,hitbox.y+fallSpeed, hitbox.width, hitbox.height,lvlData)){
             hitbox.y += fallSpeed;
-            fallSpeed += gravity;
+            fallSpeed += GRAVITY;
         }else{
             inAir = false;
             hitbox.y = GetEntityYUnderRoofOrAboveFloor(hitbox,fallSpeed);

@@ -9,11 +9,13 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+
+import static utilz.Constants.ANI_SPEED;
+import static utilz.Constants.GRAVITY;
 import static utilz.Constants.PlayerConstant.*;
 import static utilz.HelpMethods.*;
 
 public class Player extends Entity{
-    private int aniTick, aniInd, aniSpeed = 15;
     private int playerAction = IDLE;
     private boolean moving = false,attacking=false;
     private boolean left,up,right,down,jump;
@@ -24,7 +26,6 @@ public class Player extends Entity{
 
     // Player or Gravity
     private float airSpeed = 0f;
-    private float gravity = 0.04f * Game.SCALE;
     private float jumpSpeed = -2.25f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     private boolean inAir = false;
@@ -121,7 +122,7 @@ public class Player extends Entity{
 
     public void updateAnimationTick(){
         aniTick++;
-        if(aniTick >= aniSpeed){
+        if(aniTick >= ANI_SPEED){
             aniTick = 0;
             aniInd++;
             if(aniInd >= GetSpriteAmount(playerAction)){
@@ -162,7 +163,7 @@ public class Player extends Entity{
         if(inAir){
             if(CanMoveHere(hitbox.x,hitbox.y+airSpeed,hitbox.width,hitbox.height,lvlData)){
                 hitbox.y += airSpeed;
-                airSpeed += gravity;
+                airSpeed += GRAVITY;
                 updateXPost(xSpeed);
             }else{
                 hitbox.y = GetEntityYUnderRoofOrAboveFloor(hitbox,airSpeed);
