@@ -103,7 +103,7 @@ public class GameObject {
         return doAnimation;
     }
 
-    public void setDoAnimation(boolean doAnimation) {
+    public void setAnimation(boolean doAnimation) {
         this.doAnimation = doAnimation;
     }
 
