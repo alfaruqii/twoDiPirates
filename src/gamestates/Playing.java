@@ -4,6 +4,7 @@ import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 import main.Game;
+import objects.ObjectManager;
 import ui.GameOverOverlay;
 import ui.LevelCompleteOverlay;
 import ui.PauseOverlay;
@@ -23,6 +24,7 @@ public class Playing extends State implements Statemethods {
     private GameOverOverlay gameOverOverlay;
     private LevelManager levelManager;
     private EnemyManager enemyManager;
+    private ObjectManager objectManager;
     private PauseOverlay pauseOverlay;
     private LevelCompleteOverlay levelCompleteOverlay;
     private boolean pause = false;
@@ -63,6 +65,7 @@ public class Playing extends State implements Statemethods {
         gameOverOverlay = new GameOverOverlay(this);
         levelManager = new LevelManager(game);
         enemyManager = new EnemyManager(this);
+        objectManager = new ObjectManager(this);
         levelCompleteOverlay = new LevelCompleteOverlay(this);
         player = new entities.Player(200,200,(int)(64*Game.SCALE),(int)(40*Game.SCALE),this);
         player.loadLvlData(levelManager.getCurrenLevel().getLevelData());
@@ -80,6 +83,7 @@ public class Playing extends State implements Statemethods {
             levelCompleteOverlay.update();
         }else if(!gameOver){
             levelManager.update();
+            objectManager.update();
             player.update();
             enemyManager.update(levelManager.getCurrenLevel().getLevelData(),player);
             checkCloseToBorder();
@@ -107,6 +111,7 @@ public class Playing extends State implements Statemethods {
         levelManager.draw(g,xLvlOffset);
         player.render(g,xLvlOffset);
         enemyManager.draw(g,xLvlOffset);
+        objectManager.draw(g,xLvlOffset);
         if(pause){
             g.setColor(new Color(0,0,0,150));
             g.fillRect(0,0,Game.GAME_WIDTH,Game.GAME_WIDTH);
@@ -241,5 +246,8 @@ public class Playing extends State implements Statemethods {
     }
     public EnemyManager getEnemyManager(){
         return enemyManager;
+    }
+    public ObjectManager getObjectManager(){
+        return objectManager;
     }
 }

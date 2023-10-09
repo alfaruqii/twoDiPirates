@@ -19,7 +19,6 @@ import static utilz.Constants.EnemyConstants.CRABBY;
 public class LoadSave {
     public static final String PLAYER_SPRITES = "res/player_sprites.png";
     public static final String LEVEL_SPRITES = "res/outside_sprites.png";
-    public static final String LEVEL_ONE_DATA = "/res/lvls/1.png";
     public static final String BUTTON_ATLAS = "res/button_atlas.png";
     public static final String MENU_BACKGROUND = "res/menu_background.png";
     public static final String MENU_BACKGROUND_IMG = "res/menu_background_img.png";
@@ -34,6 +33,8 @@ public class LoadSave {
     public static final String CRABBY_SPRITE = "res/crabby_sprite.png";
     public static final String HEALTH_POWER_BAR = "res/health_power_bar.png";
     public static final String COMPLETED_IMG = "res/completed_sprite.png";
+    public static final String CONTAINER_ATLAS = "res/objects_sprites.png";
+    public static final String POTIONS_SPRITES = "res/potions_sprites.png";
     public static BufferedImage GetSpritesAtlas(String path){
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+path);
