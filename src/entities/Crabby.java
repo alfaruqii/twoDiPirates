@@ -10,11 +10,10 @@ import static utilz.Constants.EnemyConstants.*;
 import static utilz.HelpMethods.*;
 
 public class Crabby extends Enemy {
-    private Rectangle2D.Float attackBox;
     private int attackBoxOffset;
     public Crabby(float x, float y) {
         super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
-        initHitbox(x,y,(int)(22*Game.SCALE),(int)(19*Game.SCALE));
+        initHitbox(22,19);
         initAttackBox();
     }
     private void initAttackBox(){
@@ -37,7 +36,7 @@ public class Crabby extends Enemy {
         if(inAir){
             updateInAir(lvlData);
         } else {
-            switch (enemyState){
+            switch (state){
                 case(IDLE):
                     newState(RUNNING);
                     break;
@@ -59,9 +58,5 @@ public class Crabby extends Enemy {
                     break;
             }
         }
-    }
-    public void drawAttackBox(Graphics g, int xLvlOffset){
-        g.setColor(Color.RED);
-        g.drawRect((int)(attackBox.x-xLvlOffset),(int)attackBox.y,(int)attackBox.width,(int)attackBox.height);
     }
 }
