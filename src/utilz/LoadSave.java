@@ -35,6 +35,7 @@ public class LoadSave {
     public static final String COMPLETED_IMG = "res/completed_sprite.png";
     public static final String CONTAINER_ATLAS = "res/objects_sprites.png";
     public static final String POTIONS_SPRITES = "res/potions_sprites.png";
+    public static final String TRAP_ATLAS = "res/trap_atlas.png";
     public static BufferedImage GetSpritesAtlas(String path){
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+path);

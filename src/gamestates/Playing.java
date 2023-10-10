@@ -234,12 +234,6 @@ public class Playing extends State implements Statemethods {
     public void setGameOver(boolean gameOver){
         this.gameOver = gameOver;
     }
-    public void checkPotionTouched(Rectangle2D.Float hitbox) {
-        objectManager.checkObjectTouched(hitbox);
-    }
-    public void checkEnemyHit(Rectangle2D.Float attackBox){
-        enemyManager.checkEnemyHit(attackBox);
-    }
     public void setLevelCompleted(boolean lvlCompleted){
         this.lvlCompleted = lvlCompleted;
     }
@@ -255,8 +249,22 @@ public class Playing extends State implements Statemethods {
     public ObjectManager getObjectManager(){
         return objectManager;
     }
+    public LevelManager getLevelManager(){
+        return levelManager;
+    }
+
+    public void checkPotionTouched(Rectangle2D.Float hitbox) {
+        objectManager.checkObjectTouched(hitbox);
+    }
+    public void checkEnemyHit(Rectangle2D.Float attackBox){
+        enemyManager.checkEnemyHit(attackBox);
+    }
 
     public void checkObjectHit(Rectangle2D.Float attackBox) {
         objectManager.checkObjectHit(attackBox);
+    }
+
+    public void checkSpikesTouched(Player player) {
+        objectManager.checkSpikesTouched(player);
     }
 }

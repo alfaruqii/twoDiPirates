@@ -70,12 +70,18 @@ public class Player extends Entity{
         }
         updateAttackBox();
         updatePos();
-        if(moving)
+        if(moving){
             checkPotionTouched();
+            checkSpikesTouced();
+        }
         if(attacking)
             checkAttack();
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkSpikesTouced() {
+        playing.checkSpikesTouched(this);
     }
 
     private void checkPotionTouched() {
@@ -271,5 +277,9 @@ public class Player extends Entity{
 
     public void changePower(int bluePotionValue) {
         System.out.println("Added Power!");
+    }
+
+    public void kill() {
+        currentHealth = 0;
     }
 }

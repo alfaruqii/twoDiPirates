@@ -1,5 +1,6 @@
 package objects;
 
+import entities.Player;
 import gamestates.Playing;
 import levels.Level;
 import utilz.LoadSave;
@@ -14,8 +15,10 @@ import static utilz.Constants.ObjectConstant.*;
 public class ObjectManager {
     private Playing playing;
     private BufferedImage[][] potionImgs, containerImgs;
+    private BufferedImage spikeImage;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
+    private ArrayList<Spike> spikes;
     public ObjectManager(Playing playing) {
         this.playing = playing;
         loadImgs();
@@ -29,6 +32,12 @@ public class ObjectManager {
                 }
         }
     }
+    public void checkSpikesTouched(Player p){
+        for(Spike s : spikes){
+            if(s.getHitbox().intersects(p.getHitbox()))
+                p.kill();
+        }
+    }
     public void applyEffectToPlayer(Potion p){
         if(p.getObjType() == RED_POTION)
             playing.getPlayer().changeHealth(RED_POTION_VALUE);
@@ -37,7 +46,7 @@ public class ObjectManager {
     }
     public void checkObjectHit(Rectangle2D.Float attackBox){
         for (GameContainer gc : containers)
-            if(gc.isActive())
+            if(gc.isActive() && !gc.isDoAnimation())
                 if(gc.getHitbox().intersects(attackBox)){
                     gc.setAnimation(true);
                     int type = 0;
@@ -63,10 +72,12 @@ public class ObjectManager {
                 containerImgs[j][i] = containerSprite.getSubimage(40*i,30*j,40,30);
             }
         }
+        spikeImage = LoadSave.GetSpritesAtlas(LoadSave.TRAP_ATLAS);
     }
     public void loadObjects(Level newLevel) {
-        potions = newLevel.getPotions();
-        containers = newLevel.getContainers();
+        potions = new ArrayList<>(newLevel.getPotions());
+        containers = new ArrayList<>(newLevel.getContainers());
+        spikes = newLevel.getSpikes();
     }
     public void update(){
         for(Potion p : potions)
@@ -79,6 +90,12 @@ public class ObjectManager {
     public void draw(Graphics g, int xLvlOffset){
         drawContainers(g,xLvlOffset);
         drawPotions(g,xLvlOffset);
+        drawTraps(g,xLvlOffset);
+    }
+
+    private void drawTraps(Graphics g, int xLvlOffset) {
+        for(Spike s : spikes)
+            g.drawImage(spikeImage,(int)(s.getHitbox().x-xLvlOffset),(int)(s.getHitbox().y-s.getyDrawOffset()),SPIKE_WIDTH,SPIKE_HEIGHT,null);
     }
 
     private void drawPotions(Graphics g, int xLvlOffset) {
@@ -101,7 +118,7 @@ public class ObjectManager {
         for (GameContainer gc : containers)
             if(gc.isActive()) {
                 int type = 0;
-                if (gc.getObjType() == BOX) {
+                if (gc.getObjType() == BARREL) {
                     type = 1;
                 }
                 g.drawImage(containerImgs[type][gc.getAniIndex()],
@@ -114,6 +131,7 @@ public class ObjectManager {
     }
 
     public void resetAllObjects() {
+        loadObjects(playing.getLevelManager().getCurrenLevel());
         for (Potion p : potions)
             p.reset();
         for (GameContainer gc: containers)
