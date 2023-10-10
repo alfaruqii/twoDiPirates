@@ -18,6 +18,7 @@ import static utilz.HelpMethods.*;
 public class Player extends Entity{
     private boolean moving = false,attacking=false;
     private boolean left,right,jump;
+    private int tileY = 0;
     private BufferedImage[][] charAnimates;
     private float xDrawOffset = 21 * Game.SCALE;
     private float yDrawOffset = 4 * Game.SCALE;
@@ -73,6 +74,7 @@ public class Player extends Entity{
         if(moving){
             checkPotionTouched();
             checkSpikesTouced();
+            tileY = (int)(hitbox.y / Game.TILES_SIZE);
         }
         if(attacking)
             checkAttack();
@@ -281,5 +283,8 @@ public class Player extends Entity{
 
     public void kill() {
         currentHealth = 0;
+    }
+    public int getTileY(){
+        return  tileY;
     }
 }

@@ -84,7 +84,7 @@ public class Playing extends State implements Statemethods {
             levelCompleteOverlay.update();
         }else if(!gameOver){
             levelManager.update();
-            objectManager.update();
+            objectManager.update(levelManager.getCurrenLevel().getLevelData(), player);
             player.update();
             enemyManager.update(levelManager.getCurrenLevel().getLevelData(),player);
             checkCloseToBorder();
