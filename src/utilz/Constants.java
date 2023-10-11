@@ -6,6 +6,13 @@ import main.Game;
 public class Constants {
     public static final float GRAVITY = 0.04f * Game.SCALE;
     public static final int ANI_SPEED = 25;
+    public static class Projecttiles {
+        public static final int CANNON_BALL_WIDTH_DEFAULT = 15;
+        public static final int CANNON_BALL_HEIGHT_DEFAULT = 15;
+        public static final int CANNON_BALL_WIDTH = (int)(CANNON_BALL_WIDTH_DEFAULT * Game.SCALE);
+        public static final int CANNON_BALL_HEIGHT = (int)(CANNON_BALL_HEIGHT_DEFAULT * Game.SCALE);
+        public static final float SPEED = 0.75f * Game.SCALE;
+    }
     public static class ObjectConstant {
         public static final int RED_POTION = 0;
         public static final int BLUE_POTION = 1;

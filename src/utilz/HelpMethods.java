@@ -202,4 +202,7 @@ public class HelpMethods {
         }
         return list;
     }
+    public static boolean IsProjectileHittingLevel(Projectile projectile, int[][] lvlData){
+        return IsSolid((float) (projectile.getHitbox().x + projectile.getHitbox().getWidth()/2), (float) (projectile.getHitbox().y+projectile.getHitbox().getHeight()/2),lvlData);
+    }
 }
