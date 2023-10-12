@@ -37,6 +37,8 @@ public class Playing extends State implements Statemethods {
     private Random rnd = new Random();
     private boolean gameOver;
     private boolean lvlCompleted = false;
+    private boolean playerDying;
+
     public Playing(Game game){
         super(game);
         initClass();
@@ -82,7 +84,11 @@ public class Playing extends State implements Statemethods {
             pauseOverlay.update();
         } else if (lvlCompleted) {
             levelCompleteOverlay.update();
-        }else if(!gameOver){
+        } else if(gameOver){
+            gameOverOverlay.update();
+        } else if(playerDying){
+            player.update();
+        } else {
             levelManager.update();
             objectManager.update(levelManager.getCurrenLevel().getLevelData(), player);
             player.update();
@@ -140,7 +146,8 @@ public class Playing extends State implements Statemethods {
                 pauseOverlay.mouseReleased(mouseEvent);
             else if(lvlCompleted)
                 levelCompleteOverlay.mouseReleased(mouseEvent);
-        }
+        }else
+            gameOverOverlay.mouseReleased(mouseEvent);
     }
 
     @Override
@@ -161,7 +168,8 @@ public class Playing extends State implements Statemethods {
                 pauseOverlay.mouseMoved(mouseEvent);
             else if(lvlCompleted)
                 levelCompleteOverlay.mouseMoved(mouseEvent);
-        }
+        }else
+            gameOverOverlay.mouseMoved(mouseEvent);
     }
 
     public void unpause(){
@@ -181,7 +189,8 @@ public class Playing extends State implements Statemethods {
                 pauseOverlay.mousePressed(mouseEvent);
             else if(lvlCompleted)
                 levelCompleteOverlay.mousePressed(mouseEvent);
-        }
+        }else
+            gameOverOverlay.mousePressed(mouseEvent);
     }
 
     @Override
@@ -227,6 +236,7 @@ public class Playing extends State implements Statemethods {
         gameOver = false;
         lvlCompleted = false;
         pause = false;
+        playerDying = false;
         player.resetAll();
         enemyManager.resetAllEnemy();
         objectManager.resetAllObjects();
@@ -266,5 +276,9 @@ public class Playing extends State implements Statemethods {
 
     public void checkSpikesTouched(Player player) {
         objectManager.checkSpikesTouched(player);
+    }
+
+    public void setPlayerDying(boolean playerDying) {
+        this.playerDying = playerDying;
     }
 }
