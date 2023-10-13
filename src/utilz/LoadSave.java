@@ -39,6 +39,7 @@ public class LoadSave {
     public static final String CANNON_ATLAS = "res/cannon_atlas.png";
     public static final String CANNON_BALL = "res/ball.png";
     public static final String DEATH_SCREEN = "res/death_screen.png";
+    public static final String OPTIONS_MENU = "res/options_background.png";
     public static BufferedImage GetSpritesAtlas(String path){
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/"+path);
