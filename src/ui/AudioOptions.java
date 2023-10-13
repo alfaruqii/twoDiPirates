@@ -13,7 +13,9 @@ import static utilz.Constants.UI.VolumeButton.VOLUME_HEIGHT;
 public class AudioOptions {
     private SoundButton musicButton,sfxButton;
     private VolumeButton volumeButton;
-    public AudioOptions(){
+    private Game game;
+    public AudioOptions(Game game){
+        this.game = game;
         createVolumeButtons();
         createSoundButton();
     }
@@ -41,11 +43,15 @@ public class AudioOptions {
     }
     public void mouseReleased(MouseEvent mouseEvent) {
         if(isIn(mouseEvent,musicButton))
-            if(musicButton.isMousePressed())
+            if(musicButton.isMousePressed()){
                 musicButton.setMuted(!musicButton.isMuted());
+                game.getAudioPlayer().toggleSongMute();
+            }
         if(isIn(mouseEvent,sfxButton))
-            if(sfxButton.isMousePressed())
+            if(sfxButton.isMousePressed()){
                 sfxButton.setMuted(!sfxButton.isMuted());
+                game.getAudioPlayer().toggleEffectMute();
+            }
         musicButton.resetBools();
         sfxButton.resetBools();
         volumeButton.resetBools();
@@ -80,8 +86,13 @@ public class AudioOptions {
     }
 
     public void mouseDragged(MouseEvent mouseEvent) {
-        if(volumeButton.isMousePressed())
+        if(volumeButton.isMousePressed()){
+            float valueBefore = volumeButton.getFloatValue();
             volumeButton.changeX(mouseEvent.getX());
+            float valueAfter = volumeButton.getFloatValue();
+            if(valueBefore != valueAfter)
+                game.getAudioPlayer().setVolume(valueAfter);
+        }
     }
     private boolean isIn(MouseEvent e, PauseButton b){
         return b.getBounds().contains(e.getX(),e.getY());

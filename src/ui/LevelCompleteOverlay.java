@@ -1,5 +1,6 @@
 package ui;
 
+import audio.AudioPlayer;
 import gamestates.Gamestates;
 import gamestates.Playing;
 import main.Game;
@@ -62,11 +63,13 @@ public class LevelCompleteOverlay {
             if(menu.isMousePressed())
             {
                 playing.resetAll();
-                Gamestates.state = Gamestates.MENU;
+                playing.setGameState(Gamestates.MENU);
             }
         if(isIn(next,e))
-            if(next.isMousePressed())
+            if(next.isMousePressed()){
                 playing.loadNextLevel();
+                playing.getGame().getAudioPlayer().setLevelSong(playing.getLevelManager().getLevelIndex());
+            }
         menu.resetBools();
         next.resetBools();
     }

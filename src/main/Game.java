@@ -1,5 +1,6 @@
 package main;
 
+import audio.AudioPlayer;
 import entities.Player;
 import gamestates.GameOptions;
 import gamestates.Gamestates;
@@ -20,6 +21,7 @@ public class Game implements Runnable{
     private Player player;
     private LevelManager levelManager;
     private AudioOptions audioOptions;
+    private AudioPlayer audioPlayer;
     private static Menu menu;
     private static GameOptions gameOptions;
     private static Playing playing;
@@ -39,7 +41,8 @@ public class Game implements Runnable{
         startGameLoop();
     }
     public void initClass(){
-        audioOptions = new AudioOptions();
+        audioOptions = new AudioOptions(this);
+        audioPlayer = new AudioPlayer();
         menu = new Menu(this);
         playing = new Playing(this);
         gameOptions = new GameOptions(this);
@@ -128,5 +131,8 @@ public class Game implements Runnable{
     }
     public AudioOptions getAudioOptions(){
         return audioOptions;
+    }
+    public AudioPlayer getAudioPlayer(){
+        return audioPlayer;
     }
 }
