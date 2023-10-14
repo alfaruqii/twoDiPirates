@@ -1,14 +1,14 @@
 package ui;
 
-import gamestates.Gamestates;
+import gamestates.Gamestate;
 import main.Game;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-import static utilz.Constants.UI.PauseButton.SOUND_SIZE;
-import static utilz.Constants.UI.VolumeButton.SLIDER_WIDTH;
-import static utilz.Constants.UI.VolumeButton.VOLUME_HEIGHT;
+import static utilz.Constants.UI.PauseButtons.SOUND_SIZE;
+import static utilz.Constants.UI.VolumeButtons.SLIDER_WIDTH;
+import static utilz.Constants.UI.VolumeButtons.VOLUME_HEIGHT;
 
 public class AudioOptions {
     private SoundButton musicButton,sfxButton;

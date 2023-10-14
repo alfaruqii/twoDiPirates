@@ -5,7 +5,7 @@ import utilz.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static utilz.Constants.UI.PauseButton.*;
+import static utilz.Constants.UI.PauseButtons.*;
 
 public class SoundButton extends PauseButton{
     private BufferedImage[][] soundImgs;
@@ -17,7 +17,7 @@ public class SoundButton extends PauseButton{
         loadSoundImgs();
     }
     private void loadSoundImgs(){
-        BufferedImage temp = LoadSave.GetSpritesAtlas(LoadSave.SOUNDS_BUTTON);
+        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SOUNDS_BUTTON);
         soundImgs = new BufferedImage[2][3];
         for(int j=0;j<soundImgs.length;j++){
             for(int i=0;i<soundImgs[j].length;i++){
@@ -67,6 +67,6 @@ public class SoundButton extends PauseButton{
     }
 
     public void draw(Graphics g){
-        g.drawImage(soundImgs[rowIndex][colIndex],xPos,yPos,width,height,null);
+        g.drawImage(soundImgs[rowIndex][colIndex],x,y,width,height,null);
     }
 }

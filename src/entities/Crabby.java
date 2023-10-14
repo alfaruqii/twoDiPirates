@@ -1,62 +1,64 @@
 package entities;
 
-import main.Game;
-
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-
-import static utilz.Constants.Directions.LEFT;
 import static utilz.Constants.EnemyConstants.*;
-import static utilz.HelpMethods.*;
+import static utilz.HelpMethods.IsFloor;
+import static utilz.Constants.Dialogue.*;
+
+import gamestates.Playing;
 
 public class Crabby extends Enemy {
-    private int attackBoxOffset;
+
     public Crabby(float x, float y) {
         super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
-        initHitbox(22,19);
-        initAttackBox();
+        initHitbox(22, 19);
+        initAttackBox(82, 19, 30);
     }
-    private void initAttackBox(){
-        attackBox = new Rectangle2D.Float(x,y,(int)(82*Game.SCALE),(int)(19*Game.SCALE));
-        attackBoxOffset = (int)(Game.SCALE * 30);
-    }
-    public void update(int[][] lvlData,Player player){
-        updateBehavior(lvlData,player);
+
+    public void update(int[][] lvlData, Playing playing) {
+        updateBehavior(lvlData, playing);
         updateAnimationTick();
         updateAttackBox();
     }
-    private void updateAttackBox(){
-        attackBox.x = hitbox.x - attackBoxOffset;
-        attackBox.y = hitbox.y;
-    }
-    public void updateBehavior(int[][] lvlData,Player player){
-        if(firstUpdate){
+
+    private void updateBehavior(int[][] lvlData, Playing playing) {
+        if (firstUpdate)
             firstUpdateCheck(lvlData);
-        }
-        if(inAir){
-            updateInAir(lvlData);
+
+        if (inAir) {
+            inAirChecks(lvlData, playing);
         } else {
-            switch (state){
-                case(IDLE):
-                    newState(RUNNING);
+            switch (state) {
+                case IDLE:
+                    if (IsFloor(hitbox, lvlData))
+                        newState(RUNNING);
+                    else
+                        inAir = true;
                     break;
-                case (RUNNING):
-                    if(canSeePlayer(lvlData,player)){
-                        turnTowardsPlayer(player);
-                        if (isPlayerCloseForAttack(player))
+                case RUNNING:
+                    if (canSeePlayer(lvlData, playing.getPlayer())) {
+                        turnTowardsPlayer(playing.getPlayer());
+                        if (isPlayerCloseForAttack(playing.getPlayer()))
                             newState(ATTACK);
                     }
                     move(lvlData);
+
+                    if (inAir)
+                        playing.addDialogue((int) hitbox.x, (int) hitbox.y, EXCLAMATION);
+
                     break;
-                case (ATTACK):
-                    if(aniIndex == 0)
+                case ATTACK:
+                    if (aniIndex == 0)
                         attackChecked = false;
-                    if(aniIndex == 3 && !attackChecked)
-                        checkPlayerHit(attackBox,player);
-                        break;
-                case (HIT):
+                    if (aniIndex == 3 && !attackChecked)
+                        checkPlayerHit(attackBox, playing.getPlayer());
+                    break;
+                case HIT:
+                    if (aniIndex <= GetSpriteAmount(enemyType, state) - 2)
+                        pushBack(pushBackDir, lvlData, 2f);
+                    updatePushBackDrawOffset();
                     break;
             }
         }
     }
+
 }

@@ -1,43 +1,38 @@
 package ui;
 
-import java.awt.*;
+import java.awt.Rectangle;
 
 public class PauseButton {
-    protected int xPos, yPos, width, height;
+
+    protected int x, y, width, height;
     protected Rectangle bounds;
-    public PauseButton(int xPos, int yPos, int width, int height){
-        this.xPos = xPos;
-        this.yPos = yPos;
+
+    public PauseButton(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
         this.width = width;
         this.height = height;
         createBounds();
     }
-    private void createBounds(){
-        this.bounds = new Rectangle(xPos,yPos,width,height);
+
+    private void createBounds() {
+        bounds = new Rectangle(x, y, width, height);
     }
 
-    public int getxPos() {
-        return xPos;
+    public int getX() {
+        return x;
     }
 
-    public void setxPos(int xPos) {
-        this.xPos = xPos;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public int getyPos() {
-        return yPos;
+    public int getY() {
+        return y;
     }
 
-    public Rectangle getBounds() {
-        return bounds;
-    }
-
-    public void setBounds(Rectangle bounds) {
-        this.bounds = bounds;
-    }
-
-    public void setyPos(int yPos) {
-        this.yPos = yPos;
+    public void setY(int y) {
+        this.y = y;
     }
 
     public int getWidth() {
@@ -55,4 +50,13 @@ public class PauseButton {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    public void setBounds(Rectangle bounds) {
+        this.bounds = bounds;
+    }
+
 }

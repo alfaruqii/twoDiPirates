@@ -4,7 +4,7 @@ import main.Game;
 
 import java.awt.geom.Rectangle2D;
 
-import static utilz.Constants.Projecttiles.*;
+import static utilz.Constants.Projectiles.*;
 
 public class Projectile {
     private Rectangle2D.Float hitbox;

@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import static utilz.Constants.ANI_SPEED;
-import static utilz.Constants.ObjectConstant.*;
+import static utilz.Constants.ObjectConstants.*;
 
 public class GameObject {
     protected int x,y,objType;

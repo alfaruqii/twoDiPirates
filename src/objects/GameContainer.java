@@ -2,8 +2,8 @@ package objects;
 
 import main.Game;
 
-import static utilz.Constants.ObjectConstant.BARREL;
-import static utilz.Constants.ObjectConstant.BOX;
+import static utilz.Constants.ObjectConstants.BARREL;
+import static utilz.Constants.ObjectConstants.BOX;
 
 public class GameContainer extends GameObject{
     public GameContainer(int x, int y, int objType) {
