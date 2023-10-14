@@ -50,9 +50,9 @@ public class Playing extends State implements Statemethods {
         loadStartLevel();
     }
     public void loadNextLevel(){
-        resetAll();
         levelManager.loadNextLevel();
         player.setSpawn(levelManager.getCurrenLevel().getPlayerSpawn());
+        resetAll();
     }
     private void loadStartLevel() {
         enemyManager.loadEnemies(levelManager.getCurrenLevel());
