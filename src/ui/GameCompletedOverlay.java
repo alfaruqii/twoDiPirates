@@ -64,8 +64,7 @@ public class GameCompletedOverlay {
             if (quit.isMousePressed()) {
                 playing.resetAll();
                 playing.resetGameCompleted();
-                playing.setGamestate(Gamestate.MENU);
-
+                playing.setGamestate(Gamestate.QUIT);
             }
         }
         quit.resetBools();

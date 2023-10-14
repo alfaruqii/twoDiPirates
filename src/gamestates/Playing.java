@@ -295,7 +295,6 @@ public class Playing extends State implements Statemethods {
         lvlCompleted = false;
         playerDying = false;
         drawRain = false;
-
         setDrawRainBoolean();
 
         player.resetAll();
