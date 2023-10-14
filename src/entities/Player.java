@@ -20,6 +20,10 @@ public class Player extends Entity{
     private boolean moving = false,attacking=false;
     private boolean left,right,jump;
     private int tileY = 0;
+    private boolean powerAttackActive;
+    private int powerAttackTick;
+    private int powerGrowSpeed = 15;
+    private int powerGrowTick;
     private BufferedImage[][] charAnimates;
     private float xDrawOffset = 21 * Game.SCALE;
     private float yDrawOffset = 4 * Game.SCALE;
@@ -39,6 +43,13 @@ public class Player extends Entity{
     private int healthBarXstart = (int)(34 * Game.SCALE);
     private int healthBarYStart = (int)(14 * Game.SCALE);
     private int healthWidth = healthBarWidth;
+    private int powerBarWidth = (int)(104 * Game.SCALE);
+    private int powerBarHeight = (int)(2 * Game.SCALE);
+    private int powerBarXStart = (int)(44 * Game.SCALE);
+    private int powerBarYStart = (int)(34 * Game.SCALE);
+    private int powerWidth = powerBarWidth;
+    private int powerMaxValue = 200;
+    private int powerValue = powerMaxValue;
     private int flipX = 0;
     private int flipW = 1;
     private boolean attackCheck;
@@ -61,11 +72,23 @@ public class Player extends Entity{
         hitbox.x = x;
         hitbox.y = y;
     }
+    private void checkAttack(){
+        if(attackCheck && aniIndex != 1)
+            return;
+        attackCheck = true;
+        if(powerAttackActive){
+            attackCheck = false;
+        }
+        playing.checkEnemyHit(attackBox);
+        playing.checkObjectHit(attackBox);
+        playing.getGame().getAudioPlayer().playAttackSond();
+    }
     private void initAttackBox(){
         attackBox = new Rectangle2D.Float(x,y,(int)(20*Game.SCALE),(int)(20*Game.SCALE));
     }
     public void update(){
         updateHealthBar();
+        updatePowerBar();
         if(currentHealth <= 0){
             //playing.setGameOver(true);
             if(state != DEAD){
@@ -88,8 +111,15 @@ public class Player extends Entity{
             checkPotionTouched();
             checkSpikesTouced();
             tileY = (int)(hitbox.y / Game.TILES_SIZE);
+            if(powerAttackActive){
+                powerAttackTick++;
+                if(powerAttackTick >= 35){
+                    powerAttackActive = false;
+                    powerAttackTick = 0;
+                }
+            }
         }
-        if(attacking)
+        if(attacking || powerAttackActive)
             checkAttack();
         updateAnimationTick();
         setAnimation();
@@ -103,18 +133,10 @@ public class Player extends Entity{
         playing.checkPotionTouched(hitbox);
     }
 
-    private void checkAttack(){
-        if(attackCheck && aniIndex != 1)
-            return;
-        attackCheck = true;
-        playing.checkEnemyHit(attackBox);
-        playing.checkObjectHit(attackBox);
-        playing.getGame().getAudioPlayer().playAttackSond();
-    }
     private void updateAttackBox(){
-        if(right){
+        if(right || (powerAttackActive || flipW == 1)){
             attackBox.x = hitbox.x + hitbox.width + (int)(Game.SCALE * 10);
-        }else if(left){
+        }else if(left || (powerAttackActive || flipW == -1)){
             attackBox.x = hitbox.x - hitbox.width - (int)(Game.SCALE * 10);
         }
         attackBox.y = hitbox.y + (int)(10 * Game.SCALE);
@@ -122,6 +144,15 @@ public class Player extends Entity{
 
     private void updateHealthBar() {
         healthWidth = (int)((currentHealth/(float)maxHealth)*healthBarWidth);
+    }
+    private void updatePowerBar(){
+        powerWidth = (int)((powerValue/(float)powerMaxValue)*powerBarWidth);
+        powerGrowTick++;
+        if(powerGrowTick >= powerGrowSpeed){
+            powerGrowTick = 0;
+            changePower(1);
+            changePower(1);
+        }
     }
 
     public void setAnimation(){
@@ -135,6 +166,12 @@ public class Player extends Entity{
                 state = JUMP;
             else
                 state = FALLING;
+        if(powerAttackActive){
+            state = ATTACK;
+            aniIndex = 1;
+            aniTick = 0;
+            return;
+        }
         if(attacking){
             state = ATTACK;
             if(startAni != ATTACK){
@@ -166,15 +203,13 @@ public class Player extends Entity{
 
     public void updatePos(){
         moving = false;
-        if(!inAir)
-            if(!IsEntityOnFloor(hitbox,lvlData))
-                inAir = true;
         if(jump){
             jump();
         }
         if(!inAir)
-            if((!left && !right) || (left && right))
-                return;
+            if(!powerAttackActive)
+                if((!left && !right) || (left && right))
+                    return;
         float xSpeed =0;
         if(left){
             xSpeed -= walkSpeed;
@@ -186,8 +221,20 @@ public class Player extends Entity{
             flipX = 0;
             flipW = 1;
         }
+        if(powerAttackActive){
+            if(!left && !right){
+                if(flipW == -1)
+                    xSpeed = -walkSpeed;
+                else
+                    xSpeed = walkSpeed;
+            }
+            xSpeed *= 3;
+        }
+        if(!inAir)
+            if(!IsEntityOnFloor(hitbox,lvlData))
+                inAir = true;
 
-        if(inAir){
+        if(inAir && !powerAttackActive){
             if(CanMoveHere(hitbox.x,hitbox.y+airSpeed,hitbox.width,hitbox.height,lvlData)){
                 hitbox.y += airSpeed;
                 airSpeed += GRAVITY;
@@ -223,6 +270,10 @@ public class Player extends Entity{
             hitbox.x += xSpeed;
         }else{
             hitbox.x = GetEntityXPosNextToWall(hitbox,xSpeed);
+            if(powerAttackActive){
+                powerAttackActive = false;
+                powerAttackTick = 0;
+            }
         }
     }
     public void changeHealth(int health){
@@ -261,9 +312,16 @@ public class Player extends Entity{
         drawUI(g);
     }
     public void drawUI(Graphics g){
+        // draw a background
         g.drawImage(statusBarImg,statusBarX,statusBarY,statusBarWidth,statusBarHeight,null);
+
+        //draw a health
         g.setColor(Color.RED);
         g.fillRect(statusBarX+healthBarXstart,statusBarY+healthBarYStart,healthWidth,healthBarHeight);
+
+        //draw a power
+        g.setColor(Color.YELLOW);
+        g.fillRect(powerBarXStart+statusBarX,powerBarYStart+statusBarY,powerWidth,powerBarHeight);
     }
     public void resetAll(){
         resetDirBoolean();
@@ -292,12 +350,24 @@ public class Player extends Entity{
         this.jump = jump;
     }
 
-    public void changePower(int bluePotionValue) {
-        System.out.println("Added Power!");
+    public void changePower(int value) {
+        powerValue += value;
+        if(powerValue >= powerMaxValue)
+            powerValue = powerMaxValue;
+        else if(powerValue <= 0)
+            powerValue = 0;
     }
 
     public void kill() {
         currentHealth = 0;
+    }
+    public void powerAttack(){
+        if(powerAttackActive)
+            return;
+        if(powerValue >= 60){
+            powerAttackActive = true;
+            changePower(-60);
+        }
     }
     public int getTileY(){
         return  tileY;
