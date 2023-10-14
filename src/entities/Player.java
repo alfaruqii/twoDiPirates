@@ -63,8 +63,8 @@ public class Player extends Entity{
         this.currentHealth = maxHealth;
         this.walkSpeed = 1.0f * Game.SCALE;
         loadAnimation();
-        initAttackBox();
         initHitbox(20,26);
+        initAttackBox();
     }
     public void setSpawn(Point spawn){
         this.x = spawn.x;
@@ -342,9 +342,9 @@ public class Player extends Entity{
 
         hitbox.x = x;
         hitbox.y = y;
+        resetAttackBox();
         if(!IsEntityOnFloor(hitbox,lvlData))
             inAir = true;
-        resetAttackBox();
     }
     public void resetAttackBox(){
         if(flipW == -1){
