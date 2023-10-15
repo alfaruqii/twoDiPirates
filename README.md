@@ -15,8 +15,4 @@ when you try to increase the volume with volume slider it will grow exponentiall
 
 # Credit
 
-## Game Assets :
-[Pixel Frog](https://pixelfrog-assets.itch.io/)
-
-## My Bro :
-[Kariin Gamin](https://www.kaaringaming.com)
+[Pixel Frog](https://pixelfrog-assets.itch.io/) for the game assets, [Kariin Gamin](https://www.kaaringaming.com) for help me with a bunch of error and guide me 
