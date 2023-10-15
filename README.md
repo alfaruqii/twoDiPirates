@@ -1,11 +1,11 @@
 # TwoDiPirates v1.0
-This is a 2d pirates game that write using javax swing, with no library
+This is a 2d pirates game that written using javax swing, with no library
 
 It really fun to play 
 
-![gif](https://ik.imagekit.io/ubr0jv4pe/TwoDiPirates/ezgif.com-optimize.gif?updatedAt=1697329411625)
+![gif](https://ik.imagekit.io/ubr0jv4pe/TwoDiPirates/ezgif.com-optimize(1).gif?updatedAt=1697330134720)
 
-<img src="https://ik.imagekit.io/ubr0jv4pe/TwoDiPirates/ezgif.com-resize.png?updatedAt=1697329548006" alt="pirates level one" style="box-shadow: 3px 3px 4px gray;">
+![default](https://ik.imagekit.io/ubr0jv4pe/TwoDiPirates/Untitled(2).png?updatedAt=1697330546277)
 
 # Warning
 
