@@ -3,9 +3,9 @@ This is a 2d pirates game that written using javax swing, with no library
 
 It really fun to play 
 
-![gif](https://ik.imagekit.io/ubr0jv4pe/TwoDiPirates/ezgif.com-optimize(1).gif?updatedAt=1697330134720)
+![gif](https://github.com/alfaruqii/twoDiPirates/blob/main/pirateslvl4.gif)
 
-![default](https://ik.imagekit.io/ubr0jv4pe/TwoDiPirates/Untitled(2).png?updatedAt=1697330546277)
+![default](https://github.com/alfaruqii/twoDiPirates/blob/main/screenshot.png)
 
 # Warning
 
