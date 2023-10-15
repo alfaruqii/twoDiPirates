@@ -12,3 +12,11 @@ It really fun to play
 ## Sounds :
 
 when you try to increase the volume with volume slider it will grow exponentially not static, so watchout your ear when you try to play using an headset or earphones
+
+# Credit
+
+## Game Assets :
+[Pixel Frog](https://pixelfrog-assets.itch.io/)
+
+## My Bro :
+[Kariin Gamin](https://www.kaaringaming.com)
