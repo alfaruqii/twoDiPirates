@@ -5,7 +5,7 @@ It really fun to play
 
 ![gif](https://ik.imagekit.io/ubr0jv4pe/TwoDiPirates/ezgif.com-optimize.gif?updatedAt=1697329411625)
 
-<img src="https://ik.imagekit.io/ubr0jv4pe/TwoDiPirates/ezgif.com-resize.png?updatedAt=1697329548006" alt="pirates level one" style="box-shadow: 1px 1px 3px gray;">
+<img src="https://ik.imagekit.io/ubr0jv4pe/TwoDiPirates/ezgif.com-resize.png?updatedAt=1697329548006" alt="pirates level one" style="box-shadow: 1px 2px 4px gray;">
 
 # Warning
 
